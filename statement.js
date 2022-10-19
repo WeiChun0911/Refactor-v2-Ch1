@@ -9,15 +9,13 @@ const statement = (invoice, plays) => {
     }).format
 
     for (let perf of invoice.performances) {
-        let thisAmount = amountFor(perf)
-
         // 加入 volumn credit
         volumeCredits += Math.max(perf.audience - 30, 0)
         // 每5名喜劇觀眾可以額外獲得點數
         if (playFor(perf).type === 'comedy') volumeCredits += Math.floor(perf.audience / 5)
         // 印出這筆訂單
-        result += `  ${playFor(perf).name}: ${format(thisAmount / 100)} (${perf.audience} seats)\n`
-        totalAmount += thisAmount
+        result += `  ${playFor(perf).name}: ${format(amountFor(perf) / 100)} (${perf.audience} seats)\n`
+        totalAmount += amountFor(perf)
     }
     result += `Amount owed is ${format(totalAmount / 100)}\n`
     result += `You earned ${volumeCredits} credits\n`
