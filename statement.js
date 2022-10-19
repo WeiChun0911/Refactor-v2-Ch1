@@ -5,13 +5,18 @@ const statement = (invoice, plays) => {
         // 印出這筆訂單
         result += `  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`
     }
-    let totalAmount = 0
-    for (let perf of invoice.performances) {
-        totalAmount += amountFor(perf)
-    }
+    let totalAmount = a()
     result += `Amount owed is ${usd(totalAmount)}\n`
     result += `You earned ${totalVolumnCredits()} credits\n`
     return result
+
+    function a() {
+        let totalAmount = 0
+        for (let perf of invoice.performances) {
+            totalAmount += amountFor(perf)
+        }
+        return totalAmount
+    }
 
     function totalVolumnCredits() {
         let volumeCredits = 0
