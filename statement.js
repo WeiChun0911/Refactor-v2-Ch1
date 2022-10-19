@@ -1,11 +1,22 @@
 const statement = (invoice, plays) => {
+    return renderPlainText(createStatementData(invoice, plays))
+}
+
+function createStatementData(invoice, plays) {
     const statementData = {}
     statementData.customer = invoice.customer
     statementData.performances = invoice.performances.map(enrichPerformance)
     statementData.totalAmount = totalAmount(statementData)
     statementData.totalVolumnCredits = totalVolumnCredits(statementData)
-    return renderPlainText(statementData)
+    return statementData
 
+    function totalAmount(data) {
+        return data.performances.reduce((total, p) => total + p.amount, 0)
+    }
+
+    function totalVolumnCredits(data) {
+        return data.performances.reduce((total, p) => total + p.volumeCredits, 0)
+    }
     function enrichPerformance(aPerformance) {
         const result = Object.assign({}, aPerformance)
         result.play = playFor(result)
@@ -13,7 +24,6 @@ const statement = (invoice, plays) => {
         result.volumeCredits = volumeCreditsFor(result)
         return result
     }
-
     function playFor(perf) {
         return plays[perf.playID]
     }
@@ -43,14 +53,6 @@ const statement = (invoice, plays) => {
         result += Math.max(aPerformance.audience - 30, 0)
         if (aPerformance.play.type === 'comedy') result += Math.floor(aPerformance.audience / 5)
         return result
-    }
-
-    function totalAmount(data) {
-        return data.performances.reduce((total, p) => total + p.amount, 0)
-    }
-
-    function totalVolumnCredits(data) {
-        return data.performances.reduce((total, p) => total + p.volumeCredits, 0)
     }
 }
 
