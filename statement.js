@@ -8,9 +8,8 @@ const statement = (invoice, plays) => {
         result += `  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`
         totalAmount += amountFor(perf)
     }
-    let volumeCredits = totalVolumnCredits()
     result += `Amount owed is ${usd(totalAmount)}\n`
-    result += `You earned ${volumeCredits} credits\n`
+    result += `You earned ${totalVolumnCredits()} credits\n`
     return result
 
     function totalVolumnCredits() {
