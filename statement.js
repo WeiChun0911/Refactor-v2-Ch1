@@ -4,7 +4,7 @@ const statement = (invoice, plays) => {
     statementData.performances = invoice.performances.map(enrichPerformance)
     statementData.totalAmount = totalAmount(statementData)
     statementData.totalVolumnCredits = totalVolumnCredits(statementData)
-    return renderPlainText(statementData, plays)
+    return renderPlainText(statementData)
 
     function enrichPerformance(aPerformance) {
         const result = Object.assign({}, aPerformance)
@@ -54,7 +54,7 @@ const statement = (invoice, plays) => {
     }
 }
 
-function renderPlainText(data, plays) {
+function renderPlainText(data) {
     let result = `Statement for ${data.customer}\n`
 
     for (let perf of data.performances) {
