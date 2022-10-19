@@ -5,8 +5,7 @@ const statement = (invoice, plays) => {
         // 印出這筆訂單
         result += `  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`
     }
-    let totalAmount = a()
-    result += `Amount owed is ${usd(totalAmount)}\n`
+    result += `Amount owed is ${usd(a())}\n`
     result += `You earned ${totalVolumnCredits()} credits\n`
     return result
 
