@@ -47,7 +47,7 @@ export default function createStatementData(invoice, plays) {
         return data.performances.reduce((total, p) => total + p.volumeCredits, 0)
     }
     function enrichPerformance(aPerformance) {
-        const calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance))
+        const calculator = createPerformanceCalculator(aPerformance, playFor(aPerformance))
         const result = Object.assign({}, aPerformance)
         result.play = calculator.play
         result.amount = calculator.amount
@@ -57,4 +57,8 @@ export default function createStatementData(invoice, plays) {
     function playFor(perf) {
         return plays[perf.playID]
     }
+}
+
+function createPerformanceCalculator(aPerformance, aPlay) {
+    return new PerformanceCalculator(aPerformance, aPlay)
 }
